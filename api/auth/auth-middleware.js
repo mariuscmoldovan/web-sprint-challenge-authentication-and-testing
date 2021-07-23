@@ -3,15 +3,12 @@ const db = require('./auth-model')
 const checkUsernameExists = async(req, res, next) => {
     try{
         const [user] = await db.findBy({username: req.body.username})
-        console.log(user)
         if(user){
             next({status: 422, message: "username taken"})
-        }       
-        else{
+        }else{
             req.user = user
             next()
         }
-
     } catch(err){
         next(err)
       }
@@ -19,12 +16,9 @@ const checkUsernameExists = async(req, res, next) => {
 const validateUserExsist = async(req, res, next) => {
     try{
         const [user] = await db.findBy({username: req.body.username})
-        console.log(user)
-        if(!user){
+         if(!user){
             next({status: 422, message: "invalid credentials"})
-        }
-       
-        else{
+        }else{
             req.user = user
             next()
         }

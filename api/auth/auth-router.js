@@ -9,7 +9,6 @@ const {
 
 
 router.post('/register',checkBodyValidation, checkUsernameExists,(req, res, next) => {
-
     const {username, password} = req.body
     const hash = bcrypt.hashSync(password, 8)
 
@@ -17,7 +16,7 @@ router.post('/register',checkBodyValidation, checkUsernameExists,(req, res, next
       .then(newUser=>{
         res.status(201).json(newUser)
       })
-      .catch(next)
+      .catch(next) 
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -52,9 +51,11 @@ router.post('/login',checkBodyValidation,validateUserExsist, (req, res, next) =>
       message: `welcome ${req.user.username} `,
       token,
     })
-
+ 
   }else{
-    next({status: 401, message: "invalid credentials"})}
+    next({
+      status: 401, 
+      message: "invalid credentials"})}
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
